@@ -1,4 +1,3 @@
 target/
 *.jar
 .env
-application.properties
