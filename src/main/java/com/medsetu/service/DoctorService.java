@@ -56,6 +56,12 @@ public class DoctorService {
         return result;
     }
 
+    public Map<String, Object> getMyProfile(Long userId) {
+        Doctor doctor = doctorRepository.findByUserId(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Doctor profile not found."));
+        return mapDoctorToResponse(doctor);
+    }
+
     @Transactional
     public Map<String, Object> updateDoctorProfile(Long userId, Map<String, Object> updates) {
         Doctor doctor = doctorRepository.findByUserId(userId)

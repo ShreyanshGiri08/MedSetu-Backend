@@ -37,6 +37,14 @@ public class DoctorController {
         return ResponseEntity.ok(ApiResponse.success("Doctor retrieved.", doctor));
     }
 
+    @GetMapping("/me")
+    @PreAuthorize("hasRole('DOCTOR')")
+    public ResponseEntity<ApiResponse<Map<String, Object>>> getMyProfile(
+            @AuthenticationPrincipal User currentUser) {
+        Map<String, Object> doctor = doctorService.getMyProfile(currentUser.getId());
+        return ResponseEntity.ok(ApiResponse.success("Profile retrieved.", doctor));
+    }
+
     @PutMapping("/me")
     @PreAuthorize("hasRole('DOCTOR')")
     public ResponseEntity<ApiResponse<Map<String, Object>>> updateMyProfile(
